@@ -32,7 +32,7 @@ public class Shape {
         return width * height;
     }
 
-    public String ToString() {
+    public String toString() {
         return "width:" + width + " height:" + height;
     }
 }

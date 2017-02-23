@@ -7,6 +7,7 @@ import objects.Shape;
 import objects.Point;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Marius on 23.02.2017.
@@ -70,6 +71,8 @@ public class PizzaCutter {
                 alreadyCut[y][x] = IS_CUT;
             }
         }
+
+        System.out.println(Arrays.deepToString(alreadyCut));
     }
 
     public boolean isValid(Point p, Shape shape) {
@@ -155,6 +158,7 @@ public class PizzaCutter {
      * @return the new cut Point
      */
     public Point getNextStart(Point oldPoint) {
+        System.out.println("oldPoint: " + oldPoint);
 
         if ((oldPoint.c == this.pizza.getC() - 1) && (oldPoint.r == this.pizza.getR() - 1)) {
             // we have reached the end
@@ -167,25 +171,26 @@ public class PizzaCutter {
 
         while (newPoint == null) {
             // go right
-            if ((oldPoint.c) + 1 < this.pizza.getC()) {
+            if ((currentPos.c) + 1 < this.pizza.getC()) {
                 if (isAvailable(currentPos.r, currentPos.c + 1)) {
                     newPoint = new Point(currentPos.r + 1, currentPos.c);
                 } else {
-                    currentPos = new Point(currentPos.r + 1, currentPos.c);
+                    currentPos = new Point(currentPos.r, currentPos.c + 1);
                 }
             } else {
                 // go down
                 if (isAvailable((int) currentPos.r + 1, 0)) {
                     newPoint = new Point(0, currentPos.c + 1);
+                } else {
+                    currentPos = new Point(0, (int) currentPos.c + 1);
                 }
+
             }
 
+            System.out.println("New StartPoint: " + newPoint);
+
+            return newPoint;
         }
-
-        System.out.println("New StartPoint: " + newPoint);
-
-        return newPoint;
-    }
 
     private boolean isAvailable(int r, int c) {
         return alreadyCut[r][c] == NOT_CUT;

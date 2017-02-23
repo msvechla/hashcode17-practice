@@ -10,10 +10,10 @@ public class Slice {
 
     public Slice(Point p, Shape s) {
         r1 = p.r;
-        r2 = p.r + s.GetHeight();
+        r2 = p.r + s.GetHeight() - 1;
 
         c1 = p.c;
-        c2 = p.c + s.GetWidth();
+        c2 = p.c + s.GetWidth() - 1;
     }
 
     public int getR1() {
@@ -32,7 +32,7 @@ public class Slice {
         return c2;
     }
 
-    public String ToString() {
+    public String toString() {
         return "r[" + r1 + "->" + r2 + "]c[" + c1 + "->" + c2 + "]";
     }
 }

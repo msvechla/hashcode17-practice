@@ -12,7 +12,8 @@ public class Point {
         this.r = r;
     }
 
-    public String ToString() {
+    @Override
+    public String toString() {
         return "r:" + r + " c:" + c;
     }
 }
