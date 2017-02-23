@@ -1,6 +1,7 @@
 package algo;
 
 import objects.Slice;
+import objects.Shape;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,23 @@ public class PizzaCutter {
         this.slices = new ArrayList<Slice>();
     }
 
-    public void cutSmallestSlicePossible(int startRow, int startColumn){
+    public void cutSmallestSlicePossible(int startRow, int startColumn) {
 
     }
+
+    public Shape GetShape(int min) {
+        int w = (int) Math.round(Math.sqrt(min));
+        int h = (int) Math.round(Math.sqrt(min));
+
+        if (w * h < min) {
+            w++;
+        }
+
+        if (w * h < min) {
+            h++;
+        }
+
+        return GetShape(min, new Shape(w, h));
+    }
+
 }
