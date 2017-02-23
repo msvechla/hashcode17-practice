@@ -1,5 +1,6 @@
 import algo.PizzaCutter;
 import io.FileInputReader;
+import io.FileOutputWriter;
 import objects.Pizza;
 
 /**
@@ -14,6 +15,8 @@ public class Main {
         PizzaCutter cutter = new PizzaCutter(example);
         cutter.DoWork();
 
+        FileOutputWriter foExample = new FileOutputWriter("output/example.out", cutter);
+        foExample.writeFile();
         System.out.println(example);
     }
 
