@@ -5,6 +5,7 @@ import objects.Slice;
 import objects.Shape;
 
 import objects.Point;
+
 import java.util.ArrayList;
 
 /**
@@ -33,8 +34,8 @@ public class PizzaCutter {
             Shape s = getShape();
 
             while (true) {
-                if (p.y + s.GetHeight() < pizza.getR()
-                        && p.x + s.GetWidth() < pizza.getC()
+                if (p.r + s.GetHeight() < pizza.getR()
+                        && p.c + s.GetWidth() < pizza.getC()
                         && isValid(p, s)) {
                     System.out.println("found new shape");
                     Slice c = new Slice(p, s);
@@ -53,7 +54,7 @@ public class PizzaCutter {
 
             p = getNextStart(p);
 
-            if (p.y == -1 && p.x == -1) {
+            if (p.r == -1 && p.c == -1) {
                 // no more start options available
                 break;
             }
@@ -75,18 +76,18 @@ public class PizzaCutter {
         int countMushroom = 0;
         int countTomato = 0;
 
-        for (int i = 0; i < shape.GetHeight(); i++) {
-            for (int j = 0; j < shape.GetWidth(); j++) {
-                if (!isAvailable(p.y + i, p.x + j)) {
+        for (int r = 0; r < shape.GetHeight(); r++) {
+            for (int c = 0; c < shape.GetWidth(); c++) {
+                if (!isAvailable(p.r + r, p.c + c)) {
                     return false;
                 }
 
-                if (pizza.getPizza()[p.y + i][p.x + j] == Pizza.TOMATO) {
+                if (pizza.getPizza()[p.r + r][p.c + c] == Pizza.TOMATO) {
                     countTomato++;
                     continue;
                 }
 
-                if (pizza.getPizza()[p.y + i][p.x + j] == Pizza.MUSHROOM) {
+                if (pizza.getPizza()[p.r + r][p.c + c] == Pizza.MUSHROOM) {
                     countMushroom++;
                     continue;
                 }
@@ -155,7 +156,7 @@ public class PizzaCutter {
      */
     public Point getNextStart(Point oldPoint) {
 
-        if ((oldPoint.getX() == this.pizza.getC() - 1) && (oldPoint.getY() == this.pizza.getR() - 1)) {
+        if ((oldPoint.c == this.pizza.getC() - 1) && (oldPoint.r == this.pizza.getR() - 1)) {
             // we have reached the end
             return new Point(-1, -1);
         }
@@ -166,24 +167,22 @@ public class PizzaCutter {
 
         while (newPoint == null) {
             // go right
-            if ((currentPos.getX()) + 1 < this.pizza.getC()) {
-                if (isAvailable((int) currentPos.getY(), (int) currentPos.getX() + 1)) {
-                    newPoint = new Point((int) currentPos.getX() + 1, (int) currentPos.getY());
+            if ((oldPoint.c) + 1 < this.pizza.getC()) {
+                if (isAvailable(currentPos.r, currentPos.c + 1)) {
+                    newPoint = new Point(currentPos.r + 1, currentPos.c);
                 } else {
-                    currentPos = new Point((int) currentPos.getX() + 1, (int) currentPos.getY());
+                    currentPos = new Point(currentPos.r + 1, currentPos.c);
                 }
             } else {
                 // go down
-                if (isAvailable((int) currentPos.getY() + 1, 0)) {
-                    newPoint = new Point(0, (int) currentPos.getY() + 1);
-                }else{
-                    currentPos = new Point(0, (int) currentPos.getY() + 1);
+                if (isAvailable((int) currentPos.r + 1, 0)) {
+                    newPoint = new Point(0, currentPos.c + 1);
                 }
             }
 
         }
 
-        System.out.println("New StartPoint: " + newPoint.y + "," + newPoint.x);
+        System.out.println("New StartPoint: " + newPoint);
 
         return newPoint;
     }
