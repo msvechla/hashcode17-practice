@@ -41,21 +41,25 @@ public class PizzaCutter {
         return getShape(new Shape(w, h));
     }
 
-    public Shape getShape(Shape lastSlice) {
-        if (lastSlice.GetSize() >= this.pizza.getH()) {
+    public Shape getShape(Shape lastShape) {
+        // check if shape reached max size
+        if (lastShape.GetSize() >= this.pizza.getH()) {
             return null;
         }
 
-        if (lastSlice.GetWidth() >= pizza.getC()) {
-            lastSlice.SetWidth(1);
-            lastSlice.SetHeight(lastSlice.GetWidth() + 1);
-            return lastSlice;
+        // check if shape crosses bounds
+        if (lastShape.GetWidth() >= pizza.getC()) {
+            // reduce with to one
+            lastShape.SetWidth(1);
+            // expand height
+            lastShape.SetHeight(lastShape.GetWidth() + 1);
+            return lastShape;
         }
 
-        lastSlice.SetWidth(lastSlice.GetWidth() + 1);
-        return lastSlice;
+        // expand width
+        lastShape.SetWidth(lastShape.GetWidth() + 1);
+        return lastShape;
     }
-
 
     public Point getNextStart(Point oldPoint) {
 
