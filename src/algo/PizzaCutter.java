@@ -55,12 +55,6 @@ public class PizzaCutter {
 
     }
 
-    /**
-     * Returns the new position where we can start to cut, based on the previous position
-     * @param oldPoint Position where the last cut was tried
-     * @return the new cut Point
-     */
-    public Point getNextStart(Point oldPoint) {
     public Shape getShape() {
         int min = this.pizza.getL();
 
@@ -98,6 +92,11 @@ public class PizzaCutter {
         return lastShape;
     }
 
+    /**
+     * Returns the new position where we can start to cut, based on the previous position
+     * @param oldPoint Position where the last cut was tried
+     * @return the new cut Point
+     */
     public Point getNextStart(Point oldPoint) {
 
         if ((oldPoint.getX() == this.pizza.getC()) && (oldPoint.getY() == this.pizza.getR())){
