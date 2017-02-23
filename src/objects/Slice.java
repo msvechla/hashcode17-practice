@@ -1,5 +1,7 @@
 package objects;
 
+import java.awt.*;
+
 /**
  * Created by Marius on 23.02.2017.
  */
@@ -7,10 +9,24 @@ public class Slice {
 
     int r1, r2, c1, c2;
 
-    public Slice(int r1, int r2, int c1, int c2) {
-        this.r1 = r1;
-        this.r2 = r2;
-        this.c1 = c1;
-        this.c2 = c2;
+    public Slice(Point p, Shape s) {
+        r1 = p.y;
+        r2 = p.y + s.GetHeight();
+
+        c1 = p.x;
+        c2 = p.x + s.GetWidth();
+    }
+
+    public int getR1(){
+        return r1;
+    }
+    public int getR2(){
+        return r2;
+    }
+    public int getC1(){
+        return c1;
+    }
+    public int getC2(){
+        return c2;
     }
 }

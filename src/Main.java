@@ -1,3 +1,4 @@
+import algo.PizzaCutter;
 import io.FileInputReader;
 import objects.Pizza;
 
@@ -9,6 +10,9 @@ public class Main {
     public static void main(String[] args) {
         FileInputReader fiExample = new FileInputReader("input/example.in");
         Pizza example = fiExample.read();
+
+        PizzaCutter cutter = new PizzaCutter(example);
+        cutter.DoWork();
 
         System.out.println(example);
     }

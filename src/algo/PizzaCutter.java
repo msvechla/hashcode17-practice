@@ -26,12 +26,61 @@ public class PizzaCutter {
         this.slices = new ArrayList<Slice>();
     }
 
+    public void DoWork() {
+        Point p = new Point(0, 0);
+
+        while (true) {
+            Shape s = getShape();
+
+            while (true) {
+                if (p.y + s.GetHeight() < pizza.getR()
+                        && p.x + s.GetWidth() < pizza.getC()
+                        && isValid(p, s)) {
+                    System.out.println("found new shape");
+                    Slice c = new Slice(p, s);
+                    slices.add(c);
+                    cut(c);
+                    break;
+                }
+
+                s = getShape(s);
+
+                if (s == null) {
+                    // no valid shapes anymore
+                    break;
+                }
+            }
+
+            p = getNextStart(p);
+
+            if (p.y == -1 && p.x == -1) {
+                // no more start options available
+                break;
+            }
+
+
+            System.out.println(slices.size());
+        }
+    }
+
+    private void cut(Slice c) {
+        for (int y = c.getR1(); y < c.getR2(); y++) {
+            for (int x = c.getC1(); x < c.getC2(); x++) {
+                alreadyCut[y][x] = IS_CUT;
+            }
+        }
+    }
+
     public boolean isValid(Point p, Shape shape) {
         int countMushroom = 0;
         int countTomato = 0;
 
         for (int i = 0; i < shape.GetHeight(); i++) {
             for (int j = 0; j < shape.GetWidth(); j++) {
+                if (!isAvailable(p.y + i, p.x + j)) {
+                    return false;
+                }
+
                 if (pizza.getPizza()[p.y + i][p.x + j] == Pizza.TOMATO) {
                     countTomato++;
                     continue;
@@ -78,50 +127,62 @@ public class PizzaCutter {
             return null;
         }
 
+        Shape newShape = null;
+
         // check if shape crosses bounds
         if (lastShape.GetWidth() >= pizza.getC()) {
             // reduce with to one
             lastShape.SetWidth(1);
             // expand height
             lastShape.SetHeight(lastShape.GetWidth() + 1);
-            return lastShape;
+            newShape = lastShape;
+        } else {
+            // expand width
+            lastShape.SetWidth(lastShape.GetWidth() + 1);
+            newShape = lastShape;
         }
 
-        // expand width
-        lastShape.SetWidth(lastShape.GetWidth() + 1);
-        return lastShape;
+        System.out.println("New Shape: " + newShape.GetWidth() + "x" + newShape.GetHeight());
+
+        return newShape;
     }
 
     /**
      * Returns the new position where we can start to cut, based on the previous position
+     *
      * @param oldPoint Position where the last cut was tried
      * @return the new cut Point
      */
     public Point getNextStart(Point oldPoint) {
 
-        if ((oldPoint.getX() == this.pizza.getC()) && (oldPoint.getY() == this.pizza.getR())){
+        if ((oldPoint.getX() == this.pizza.getC() - 1) && (oldPoint.getY() == this.pizza.getR() - 1)) {
             // we have reached the end
-            return new Point(-1,-1);
+            return new Point(-1, -1);
         }
 
         Point newPoint = null;
         Point currentPos = oldPoint;
         /** go line by line */
 
-        while(newPoint == null){
+        while (newPoint == null) {
             // go right
             if ((oldPoint.getX()) + 1 < this.pizza.getC()) {
                 if (isAvailable((int) currentPos.getY(), (int) currentPos.getX() + 1)) {
                     newPoint = new Point((int) currentPos.getX() + 1, (int) currentPos.getY());
+                } else {
+                    currentPos = new Point((int) currentPos.getX() + 1, (int) currentPos.getY());
                 }
             } else {
                 // go down
                 if (isAvailable((int) currentPos.getY() + 1, 0)) {
-                    newPoint = new Point(0, (int) currentPos.getY());
+                    newPoint = new Point(0, (int) currentPos.getY() + 1);
                 }
             }
 
         }
+
+        System.out.println("New StartPoint: " + newPoint.y + "," + newPoint.x);
+
         return newPoint;
     }
 
