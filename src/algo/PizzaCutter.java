@@ -166,7 +166,7 @@ public class PizzaCutter {
 
         while (newPoint == null) {
             // go right
-            if ((oldPoint.getX()) + 1 < this.pizza.getC()) {
+            if ((currentPos.getX()) + 1 < this.pizza.getC()) {
                 if (isAvailable((int) currentPos.getY(), (int) currentPos.getX() + 1)) {
                     newPoint = new Point((int) currentPos.getX() + 1, (int) currentPos.getY());
                 } else {
@@ -176,6 +176,8 @@ public class PizzaCutter {
                 // go down
                 if (isAvailable((int) currentPos.getY() + 1, 0)) {
                     newPoint = new Point(0, (int) currentPos.getY() + 1);
+                }else{
+                    currentPos = new Point(0, (int) currentPos.getY() + 1);
                 }
             }
 
