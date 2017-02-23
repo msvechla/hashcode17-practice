@@ -10,7 +10,7 @@ public class Main {
         FileInputReader fiExample = new FileInputReader("input/example.in");
         Pizza example = fiExample.read();
 
-        System.out.println("DONE");
+        System.out.println(example);
     }
 
 }

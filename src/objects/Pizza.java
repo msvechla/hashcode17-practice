@@ -1,5 +1,7 @@
 package objects;
 
+import java.util.Arrays;
+
 /**
  * Created by Marius on 23.02.2017.
  */
@@ -62,6 +64,10 @@ public class Pizza {
 
     public void setPizza(int[][] pizza) {
         this.pizza = pizza;
+    }
+
+    public String toString(){
+        return "Pizza: " + Arrays.deepToString(this.pizza);
     }
 
 }
