@@ -17,16 +17,23 @@ public class Slice {
         c2 = p.x + s.GetWidth();
     }
 
-    public int getR1(){
+    public int getR1() {
         return r1;
     }
-    public int getR2(){
+
+    public int getR2() {
         return r2;
     }
-    public int getC1(){
+
+    public int getC1() {
         return c1;
     }
-    public int getC2(){
+
+    public int getC2() {
         return c2;
+    }
+
+    public String ToString() {
+        return "r[" + r1 + "->" + r2 + "]c[" + c1 + "->" + c2 + "]";
     }
 }

@@ -4,7 +4,7 @@ import objects.Pizza;
 import objects.Slice;
 import objects.Shape;
 
-import java.awt.Point;
+import objects.Point;
 import java.util.ArrayList;
 
 /**

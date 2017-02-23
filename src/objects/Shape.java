@@ -12,22 +12,27 @@ public class Shape {
         height = h;
     }
 
-    public int GetHeight(){
+    public int GetHeight() {
         return height;
     }
-    public int GetWidth(){
-        return  width;
+
+    public int GetWidth() {
+        return width;
     }
 
-    public void SetWidth(int w){
+    public void SetWidth(int w) {
         width = w;
     }
 
-    public void SetHeight(int h){
+    public void SetHeight(int h) {
         height = h;
     }
 
-    public int GetSize(){
-        return width*height;
+    public int GetSize() {
+        return width * height;
+    }
+
+    public String ToString() {
+        return "width:" + width + " height:" + height;
     }
 }
