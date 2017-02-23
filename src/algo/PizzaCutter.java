@@ -38,7 +38,7 @@ public class PizzaCutter {
                 if (p.r + s.GetHeight() < pizza.getR()
                         && p.c + s.GetWidth() < pizza.getC()
                         && isValid(p, s)) {
-                    System.out.println("found new shape");
+                    System.out.println("new shape: " + s);
                     Slice c = new Slice(p, s);
                     slices.add(c);
                     cut(c);
@@ -61,18 +61,18 @@ public class PizzaCutter {
             }
 
 
-            System.out.println(slices.size());
+            System.out.println("Slices: " + slices.size());
         }
     }
 
     private void cut(Slice c) {
-        for (int y = c.getR1(); y < c.getR2(); y++) {
-            for (int x = c.getC1(); x < c.getC2(); x++) {
+        for (int y = c.getR1(); y <= c.getR2(); y++) {
+            for (int x = c.getC1(); x <= c.getC2(); x++) {
                 alreadyCut[y][x] = IS_CUT;
             }
         }
 
-        System.out.println(Arrays.deepToString(alreadyCut));
+        System.out.println("alreadyCut: " + Arrays.deepToString(alreadyCut));
     }
 
     public boolean isValid(Point p, Shape shape) {
@@ -145,9 +145,7 @@ public class PizzaCutter {
             lastShape.SetWidth(lastShape.GetWidth() + 1);
             newShape = lastShape;
         }
-
-        System.out.println("New Shape: " + newShape.GetWidth() + "x" + newShape.GetHeight());
-
+        
         return newShape;
     }
 
@@ -171,26 +169,27 @@ public class PizzaCutter {
 
         while (newPoint == null) {
             // go right
-            if ((currentPos.c) + 1 < this.pizza.getC()) {
-                if (isAvailable(currentPos.r, currentPos.c + 1)) {
-                    newPoint = new Point(currentPos.r + 1, currentPos.c);
-                } else {
-                    currentPos = new Point(currentPos.r, currentPos.c + 1);
-                }
-            } else {
-                // go down
-                if (isAvailable((int) currentPos.r + 1, 0)) {
-                    newPoint = new Point(0, currentPos.c + 1);
-                } else {
-                    currentPos = new Point(0, (int) currentPos.c + 1);
-                }
+            currentPos.c++;
 
+            if (currentPos.c == pizza.getC()) {
+                currentPos.r++;
+                currentPos.c = 0;
             }
 
-            System.out.println("New StartPoint: " + newPoint);
+            if (currentPos.r == pizza.getR()) {
+                currentPos = new Point(-1, -1);
+                System.out.println("newPoint: " + currentPos);
+                return currentPos;
+            }
 
-            return newPoint;
+            if (isAvailable(currentPos.r, currentPos.c)) {
+                System.out.println("newPoint: " + currentPos);
+                return currentPos;
+            }
         }
+
+        return null;
+    }
 
     private boolean isAvailable(int r, int c) {
         return alreadyCut[r][c] == NOT_CUT;
