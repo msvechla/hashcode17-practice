@@ -31,7 +31,7 @@ public class FileOutputWriter {
             bw.write(String.valueOf(pizzaCutter.getSlices().size()));
             for (Slice s : pizzaCutter.getSlices()) {
                 bw.newLine();
-                bw.write(s.getR1() + " " + s.getR2() + " " + s.getC1() + " " + s.getC2());
+                bw.write(s.getR1() + " " + s.getC1() + " " + s.getR2() + " " + s.getC2());
             }
 
             bw.close();
