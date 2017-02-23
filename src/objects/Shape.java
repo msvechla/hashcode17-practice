@@ -26,4 +26,8 @@ public class Shape {
     public void SetHeight(int h){
         height = h;
     }
+
+    public int GetSize(){
+        return width*height;
+    }
 }

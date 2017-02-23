@@ -1,8 +1,10 @@
 package algo;
 
+import objects.Pizza;
 import objects.Slice;
 import objects.Shape;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 /**
@@ -10,10 +12,10 @@ import java.util.ArrayList;
  */
 public class PizzaCutter {
 
-    int[][] pizza = null;
+    Pizza pizza = null;
     ArrayList<Slice> slices = null;
 
-    public PizzaCutter(int[][] pizza) {
+    public PizzaCutter(Pizza pizza) {
         this.pizza = pizza;
         this.slices = new ArrayList<Slice>();
     }
@@ -22,7 +24,9 @@ public class PizzaCutter {
 
     }
 
-    public Shape GetShape(int min) {
+    public Shape getShape() {
+        int min = this.pizza.getL();
+
         int w = (int) Math.round(Math.sqrt(min));
         int h = (int) Math.round(Math.sqrt(min));
 
@@ -34,7 +38,32 @@ public class PizzaCutter {
             h++;
         }
 
-        return GetShape(min, new Shape(w, h));
+        return getShape(new Shape(w, h));
     }
 
+    public Shape getShape(Shape lastSlice) {
+        if (lastSlice.GetSize() >= this.pizza.getH()) {
+            return null;
+        }
+
+        if (lastSlice.GetWidth() >= pizza.getC()) {
+            lastSlice.SetWidth(1);
+            lastSlice.SetHeight(lastSlice.GetWidth() + 1);
+            return lastSlice;
+        }
+
+        lastSlice.SetWidth(lastSlice.GetWidth() + 1);
+        return lastSlice;
+    }
+
+
+    public Point getNextStart(Point oldPoint) {
+
+        /** go line by line */
+
+        // go right
+        //if (oldPoint.getX() + 1 < this.pizza)
+
+
+    }
 }
