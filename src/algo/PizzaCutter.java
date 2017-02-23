@@ -191,6 +191,10 @@ public class PizzaCutter {
         return null;
     }
 
+    public ArrayList<Slice> getSlices() {
+        return slices;
+    }
+
     private boolean isAvailable(int r, int c) {
         return alreadyCut[r][c] == NOT_CUT;
     }
