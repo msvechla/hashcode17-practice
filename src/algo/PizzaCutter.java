@@ -20,6 +20,31 @@ public class PizzaCutter {
         this.slices = new ArrayList<Slice>();
     }
 
+    public boolean isValid(Point p, Shape shape) {
+        int countMushroom = 0;
+        int countTomato = 0;
+
+        for (int i = 0; i < shape.GetHeight(); i++) {
+            for (int j = 0; j < shape.GetWidth(); j++) {
+                if (pizza.getPizza()[p.y + i][p.x + j] == Pizza.TOMATO) {
+                    countTomato++;
+                    continue;
+                }
+
+                if (pizza.getPizza()[p.y + i][p.x + j] == Pizza.MUSHROOM) {
+                    countMushroom++;
+                    continue;
+                }
+            }
+        }
+
+        if (Math.min(countMushroom, countTomato) >= pizza.getL()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void cutSmallestSlicePossible(int startRow, int startColumn) {
 
     }
