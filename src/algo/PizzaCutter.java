@@ -1,7 +1,9 @@
 package algo;
 
+import objects.Pizza;
 import objects.Slice;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 /**
@@ -9,15 +11,25 @@ import java.util.ArrayList;
  */
 public class PizzaCutter {
 
-    int[][] pizza = null;
+    Pizza pizza = null;
     ArrayList<Slice> slices = null;
 
-    public PizzaCutter(int[][] pizza) {
+    public PizzaCutter(Pizza pizza) {
         this.pizza = pizza;
         this.slices = new ArrayList<Slice>();
     }
 
     public void cutSmallestSlicePossible(int startRow, int startColumn){
+
+    }
+
+    public Point getNextStart(Point oldPoint){
+
+        /** go line by line */
+
+        // go right
+        if (oldPoint.getX() + 1 < this.pizza)
+
 
     }
 }
