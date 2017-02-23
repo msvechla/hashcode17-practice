@@ -167,19 +167,21 @@ public class PizzaCutter {
 
         while (newPoint == null) {
             // go right
-            if ((oldPoint.c) + 1 < this.pizza.getC()) {
-                if (isAvailable(currentPos.r, currentPos.c + 1)) {
-                    newPoint = new Point(currentPos.r + 1, currentPos.c);
-                } else {
-                    currentPos = new Point(currentPos.r + 1, currentPos.c);
-                }
-            } else {
-                // go down
-                if (isAvailable((int) currentPos.r + 1, 0)) {
-                    newPoint = new Point(0, currentPos.c + 1);
-                }
+
+            currentPos.c++;
+
+            if (currentPos.c == pizza.getC()) {
+                currentPos.r++;
+                currentPos.c = 0;
             }
 
+            if(currentPos.r == pizza.getR()){
+                return new Point(-1,-1);
+            }
+
+            if (isAvailable(currentPos.r,currentPos.c)){
+                return currentPos;
+            }
         }
 
         System.out.println("New StartPoint: " + newPoint);
